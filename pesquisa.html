@@ -1,0 +1,80 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="js/scripts.js"></script>
+        <style>
+            .displayHide {
+                display: none;
+            }
+        </style>
+    </head>
+<body>
+
+    <div>
+        <div style="margin-top: 40px; margin-bottom: 0px;">
+            <h1>Pesquisar por:</h1>
+        </div>
+         <hr>
+        <div style="margin-left: 20px;">
+            <form action="">
+                <input id="radioCep" type="radio" name="tipoBusca" value="cep" onclick="exibeGridBusca(this)"><label for="cep">CEP</label>
+                <input id="radioLogra" type="radio" name="tipoBusca" value="logra" onclick="exibeGridBusca(this)"><label for="logra">Logradouro</label>
+            </form>
+        </div>
+        <hr>
+        <div id="divBuscaCep" class="displayHide" style="margin-left: 20px;">
+            <label for="cep">CEP:</label>
+            <input type="text" id="cep" value="" size="10" autofocus>
+        </div>
+        <div id="divBuscaLogradouro" class="displayHide" style="margin-left: 20px;">
+            <label for="estado">Estado:</label>	
+            <select id="estado" onchange="carregaCidades()">
+            </select>
+            <br>
+            <label for="cidade">Cidade:</label>
+            <select id="cidade">
+            </select>
+            <br>
+            <label for="logradouro">Logradouro:</label>
+            <input type="text" id="logradouro" value="" size="80" autofocus>
+        </div>
+        <hr>
+    </div>
+<div>
+    <button onclick="buscar()">Pesquisar</button>
+</div>
+    <br>
+    <hr>
+    <br>
+    <br>
+    <div id="divTable" class="displayHide">
+        <table class="table table-bordered" id="products-table">
+            <tbody>
+                <tr>
+                    <!--<th>Id</th>
+                    <th>Etiqueta</th>
+                    <th>Descrição</th>
+                    <th>Data de Aquisição</th>-->
+                    <th>CEP</th>
+                    <th>Estado</th>
+                    <th>Cidade</th>
+                    <th>Bairro</th>
+                    <th>Logradouro</th>
+                    <th>Ações</th>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="5" style="text-align: left;">
+                        <button onclick="addTableRow()" type="button">Adicionar
+                            Produto</button>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+</body>
+</html>

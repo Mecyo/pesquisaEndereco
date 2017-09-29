@@ -1,33 +1,42 @@
+//Carrega as informações retornadas da página de pesquisa
+$(document).ready(function() {
+    if(sessionStorage.cep) {
+       var data = JSON.parse(sessionStorage.cep);
+       preencheDados(data)
+    }
+});
+
 //Executa a pesquisa do endereço pelo CEP quando o input de CEP perde o foco
 function buscarEndereco() {
     var cep = $('#cep').val().replace(/\D/g, '') || '';
 
     if(!cep) {
         limpaFormulario();
-        return;
-    }
+        window.location = "pesquisa.html";
+    } else {
+        var url = 'http://viacep.com.br/ws/' + cep + '/json';
 
-    var url = 'http://viacep.com.br/ws/' + cep + '/json';
+        $.getJSON(url)
+          .done(function(data) {
+            if(data.erro) {
+                limpaFormulario();
+                alert("Endereço não localizado para o CEP informado!");
+            } else {
+                preencheDados(data);
+            }
 
-    $.getJSON(url)
-      .done(function(data) {
-        if(data.erro) {
+          })
+          .fail(function(text, textStatus, error) {
             limpaFormulario();
-            alert("Endereço não localizado para o CEP informado!");
-        } else {
-            preencheDados(data);
-        }
-
-      })
-      .fail(function(text, textStatus, error) {
-        limpaFormulario();
-        alert("Falha ao carregar o endereço!");
-    });
+            alert("Falha ao carregar o endereço!");
+        });
+    }
 };
 
 //Preenche os campos do formulário com os dados do JSON
 function preencheDados(data) {
 
+    $('input[name="cep"]').val(data.cep);
     $('input[name="rua"]').val(data.logradouro);
     $('input[name="bairro"]').val(data.bairro);
     $('input[name="cidade"]').val(data.localidade);
